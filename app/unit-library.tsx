@@ -3,8 +3,8 @@ import { useState } from "react";
 import { ArrowLeft,BookOpen,Check,ChevronRight,FileText,Layers3,LayoutList,RotateCcw } from "lucide-react";
 import { units } from "../lib/unit-content";import { frqs } from "../lib/frq-content";import { flashcards } from "../lib/flashcard-content";
 type Mode="mcq"|"frq"|"cards";type Rating="again"|"hard"|"good"|"easy";
-export default function UnitLibrary(){
- const [mode,setMode]=useState<Mode>("mcq");const [unitId,setUnitId]=useState<string|null>(null);const [index,setIndex]=useState(0);const [choice,setChoice]=useState<number|null>(null);const [checked,setChecked]=useState(false);const [written,setWritten]=useState("");const [rubric,setRubric]=useState(false);const [flipped,setFlipped]=useState(false);const [ratings,setRatings]=useState<Record<string,Rating>>({});
+export default function UnitLibrary({initialMode="mcq"}:{initialMode?:Mode;allowedModes?:Mode[]}){
+ const [mode,setMode]=useState<Mode>(initialMode);const [unitId,setUnitId]=useState<string|null>(null);const [index,setIndex]=useState(0);const [choice,setChoice]=useState<number|null>(null);const [checked,setChecked]=useState(false);const [written,setWritten]=useState("");const [rubric,setRubric]=useState(false);const [flipped,setFlipped]=useState(false);const [ratings,setRatings]=useState<Record<string,Rating>>({});
  const unit=units.find(u=>u.id===unitId);const mcq=unit?.questions[index];const unitFrqs=frqs.filter(f=>f.unitId===unitId);const frq=unitFrqs[index];const unitCards=flashcards.filter(f=>f.unitId===unitId);const card=unitCards[index];
  const count=(id:string)=>mode==="mcq"?(units.find(u=>u.id===id)?.questions.length??0):mode==="frq"?frqs.filter(f=>f.unitId===id).length:flashcards.filter(f=>f.unitId===id).length;
  const open=(id:string)=>{setUnitId(id);setIndex(0);setChoice(null);setChecked(false);setWritten("");setRubric(false);setFlipped(false)};const change=(m:Mode)=>{setMode(m);setUnitId(null);setIndex(0)};
