@@ -19,3 +19,11 @@ export const reflections = sqliteTable("reflections", {
   id: text("id").primaryKey(), userId: text("user_id").notNull(), text: text("text").notNull(),
   private: integer("private", { mode: "boolean" }).notNull().default(true), createdAt: integer("created_at", { mode: "timestamp" }).notNull(),
 });
+
+export const externalResponses = sqliteTable("external_responses", {
+  id: text("id").primaryKey(), userId: text("user_id").notNull(),
+  resourceUrl: text("resource_url").notNull(), resourceLabel: text("resource_label").notNull(),
+  questionLabel: text("question_label").notNull(), response: text("response").notNull(),
+  status: text("status").notNull().default("draft"), createdAt: integer("created_at", { mode: "timestamp" }).notNull(),
+  updatedAt: integer("updated_at", { mode: "timestamp" }).notNull(),
+});
