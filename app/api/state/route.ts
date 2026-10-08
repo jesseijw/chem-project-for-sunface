@@ -1,0 +1,2 @@
+import { eq } from "drizzle-orm"; import { getDb } from "../../../db"; import { learnerState } from "../../../db/schema"; import { getChatGPTUser } from "../../chatgpt-auth";
+export async function GET(){const user=await getChatGPTUser();if(!user)return Response.json({error:"Unauthorized"},{status:401});const [state]=await getDb().select().from(learnerState).where(eq(learnerState.userId,user.userId)).limit(1);return Response.json({state:state??{currentState:"TRY",completedCount:0,revisitDueAt:null}})}
