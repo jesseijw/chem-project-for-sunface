@@ -18,7 +18,7 @@ for (let i = 0; i < lines.length; i++) {
   if (title) { unitNumber = Number(title[1]); titleByNumber.set(unitNumber, title[2]); continue; }
   const mcq = line.match(/^MCQ (\d+)\.(\d+)$/);
   if (mcq) {
-    const [_, u, q] = mcq; const opts = [];
+    const [, u, q] = mcq; const opts = [];
     let prompt = "";
     for (let j = i + 1; j < lines.length && opts.length < 4; j++) {
       const option = lines[j].match(/^([A-D])\.\s*(.*)$/);

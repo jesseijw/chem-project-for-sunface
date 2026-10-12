@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { Atom, ArrowRight, Beaker, BookOpen, Check, ChevronRight, CircleHelp, Clock3, FlaskConical, Layers3, Leaf, Menu, Play, Sparkles, Target, Timer } from "lucide-react";
 
 type Direction = "field" | "lab" | "night" | "afterhours";
@@ -48,11 +49,11 @@ export default function MockupsPage() {
   const [direction, setDirection] = useState<Direction>("field");
   const selected = directions.find(d => d.id === direction)!;
   return <div className="mockups-page">
-    <header className="mockups-intro"><a href="/" className="mockups-back">← Back to Chem Coach</a><div className="mockups-title-row"><div><span className="mockups-eyebrow">VISUAL CONCEPTS · 01</span><h1>Four ways Chem Coach could feel.</h1><p>Pick a direction to preview the same study dashboard in four different visual styles.</p></div><span className="concept-badge">DESIGN PREVIEW</span></div>
+    <header className="mockups-intro"><Link href="/" className="mockups-back">← Back to Chem Coach</Link><div className="mockups-title-row"><div><span className="mockups-eyebrow">VISUAL CONCEPTS · 01</span><h1>Four ways Chem Coach could feel.</h1><p>Pick a direction to preview the same study dashboard in four different visual styles.</p></div><span className="concept-badge">DESIGN PREVIEW</span></div>
       <div className="direction-switcher" role="tablist">{directions.map(d=><button key={d.id} className={direction===d.id?"active":""} onClick={()=>setDirection(d.id)}><span>{d.name}</span><small>{d.note}</small></button>)}</div>
       <div className="selected-note"><span className={`swatch swatch-${direction}`}/><span><b>{selected.name}</b> — {selected.note}. The dashboard below is a live HTML mockup and adapts to mobile.</span><span className="concept-count">0{directions.findIndex(d => d.id === direction) + 1} / 04</span></div>
     </header>
     <DashboardMockup direction={direction}/>
-    <div className="mockups-bottom"><span>Concept only · class curriculum, goals, and activity shown here are demo placeholders.</span><a href="/">Return to your site <ArrowRight size={14}/></a></div>
+    <div className="mockups-bottom"><span>Concept only · class curriculum, goals, and activity shown here are demo placeholders.</span><Link href="/">Return to your site <ArrowRight size={14}/></Link></div>
   </div>;
 }
